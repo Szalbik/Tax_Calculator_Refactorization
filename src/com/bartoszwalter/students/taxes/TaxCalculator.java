@@ -156,9 +156,9 @@ public class TaxCalculator {
 	}
 
 	public static double obliczonaPodstawa(double przychod) {
-		skladka_emerytalna = (przychod * 9.76) / 100;
-		skladka_rentowa = (przychod * 1.5) / 100;
-		skladka_chorobowa = (przychod * 2.45) / 100;
+		skladka_emerytalna = wyliczSkladkeEmerytalna(przychod);
+		skladka_rentowa = wyliczSkladkeRentowa(przychod);
+		skladka_chorobowa = wyliczSkladkeChorobowa(przychod);
 		return (przychod - skladka_emerytalna - skladka_rentowa - skladka_chorobowa);
 	}
 
@@ -166,4 +166,17 @@ public class TaxCalculator {
 		skladkaZdrowotna = (przychod * 9) / 100;
 		skladkaZdrowotnaPomniejszajacaPodatek = (przychod * 7.75) / 100;
 	}
+
+	public static double wyliczSkladkeEmerytalna(double przychod){
+	    return (przychod * 9.76) / 100;
+    }
+
+    public static double wyliczSkladkeRentowa(double przychod){
+        return (przychod * 1.5) / 100;
+    }
+
+    public static double wyliczSkladkeChorobowa(double przychod){
+        return (przychod * 2.45) / 100;
+    }
+
 }
