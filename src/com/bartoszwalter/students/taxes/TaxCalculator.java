@@ -13,7 +13,7 @@ public class TaxCalculator {
 	public static double skladka_rentowa = 0; // 1,5% podstawy
 	public static double skladka_chorobowa = 0; // 2,45% podstawy
 	// składki na ubezpieczenia zdrowotne
-	public static double kosztyUzyskania = 111.25; 
+	public static double kosztyUzyskaniaPrzychodu = 111.25;
 	public static double s_zdrow1 = 0; // od podstawy wymiaru 9%
 	public static double s_zdrow2 = 0; // od podstawy wymiaru 7,75 %
 	public static double zalicznaNaPodDoch = 0; // zaliczka na podatek dochodowy 18%
@@ -25,22 +25,22 @@ public class TaxCalculator {
 		try {
 			InputStreamReader isr = new InputStreamReader(System.in);
 			BufferedReader br = new BufferedReader(isr);
-			
-			System.out.print("Podaj kwotę dochodu: ");	
+
+			System.out.print("Podaj kwotę dochodu: ");
 			podstawa_skadek = Double.parseDouble(br.readLine());
-			
+
 			System.out.print("Typ umowy: (P)raca, (Z)lecenie: ");
 			typ_umowy = br.readLine().charAt(0);
-			
+
 		} catch (Exception ex) {
 			System.out.println("Błędna kwota");
 			System.err.println(ex);
 			return;
 		}
-		
+
 		DecimalFormat formatPrzecinkowy = new DecimalFormat("#.00");
 		DecimalFormat formatCalkowity = new DecimalFormat("#");
-		
+
 		if (typ_umowy == 'P') {
             wykonajUmowaoPrace(formatPrzecinkowy, formatCalkowity);
         } else if (typ_umowy == 'Z') {
@@ -67,10 +67,10 @@ public class TaxCalculator {
         System.out.println("Składka na ubezpieczenie zdrowotne: 9% = "
                 + formatPrzecinkowy.format(s_zdrow1) + " 7,75% = " + formatPrzecinkowy.format(s_zdrow2));
         kwotaZmiejsz = 0;
-        kosztyUzyskania = (obliczonaPodstawa * 20) / 100;
+        kosztyUzyskaniaPrzychodu = (obliczonaPodstawa * 20) / 100;
         System.out.println("Koszty uzyskania przychodu (stałe) "
-                + kosztyUzyskania);
-        double podstawaOpodat = obliczonaPodstawa - kosztyUzyskania;
+                + kosztyUzyskaniaPrzychodu);
+        double podstawaOpodat = obliczonaPodstawa - kosztyUzyskaniaPrzychodu;
         double wyliczonaPodstawaOpodat = Double.parseDouble(formatCalkowity.format(podstawaOpodat));
         System.out.println("Podstawa opodatkowania " + podstawaOpodat
                 + " zaokrąglona " + formatCalkowity.format(wyliczonaPodstawaOpodat));
@@ -115,8 +115,8 @@ public class TaxCalculator {
         System.out.println("Składka na ubezpieczenie zdrowotne: 9% = "
                 + formatPrzecinkowy.format(s_zdrow1) + " 7,75% = " + formatPrzecinkowy.format(s_zdrow2));
         System.out.println("Koszty uzyskania przychodu w stałej wysokości "
-                + kosztyUzyskania);
-        double podstawaOpodat = obliczonaPodstawa - kosztyUzyskania;
+                + kosztyUzyskaniaPrzychodu);
+        double podstawaOpodat = obliczonaPodstawa - kosztyUzyskaniaPrzychodu;
         double wyliczonaPodstawaOpodat = Double
                 .parseDouble(formatCalkowity.format(podstawaOpodat));
         System.out.println("Podstawa opodatkowania " + podstawaOpodat
