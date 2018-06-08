@@ -75,7 +75,7 @@ public class TaxCalculator {
         System.out.println("Podstawa opodatkowania " + podstawaOpodat
                 + " zaokrąglona " + formatCalkowity.format(wyliczonaPodstawaOpodat));
 
-//      ===============================
+//      ==============================
 //      Obliczanie podatku
         
         obliczPodatek(wyliczonaPodstawaOpodat);
