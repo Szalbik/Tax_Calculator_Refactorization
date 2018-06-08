@@ -6,7 +6,7 @@ import java.text.DecimalFormat;
 
 public class TaxCalculator {
 	
-	public static double podstawa = 0;
+	public static double przychod = 0;
 	public static char umowa = ' ';
 	// składki na ubezpieczenia społeczne
 	public static double skladka_emerytalna = 0; // 9,76% podstawyy
@@ -20,6 +20,7 @@ public class TaxCalculator {
 	public static double kwota_zmniejszajaca_podatek = 46.33; // kwota zmienjszająca podatek 46,33 PLN
 	public static double zaliczka_urzad_skarbowy = 0;
 	public static double zaliczka_urzad_skarbowy_podstawa = 0;
+	public static double wynagrodzenie = 0;
 
 	public static void main(String[] args) {
 		try {
@@ -27,7 +28,7 @@ public class TaxCalculator {
 			BufferedReader br = new BufferedReader(isr);
 			
 			System.out.print("Podaj kwotę dochodu: ");	
-			podstawa = Double.parseDouble(br.readLine());
+			przychod = Double.parseDouble(br.readLine());
 			
 			System.out.print("Typ umowy: (P)raca, (Z)lecenie: ");
 			umowa = br.readLine().charAt(0);
@@ -52,8 +53,8 @@ public class TaxCalculator {
 
 	public static void wyliczDlaUmowyOPrace(DecimalFormat df00, DecimalFormat df){
 		System.out.println("UMOWA O PRACĘ");
-		System.out.println("Podstawa wymiaru składek " + podstawa);
-		double oPodstawa = obliczonaPodstawa(podstawa);
+		System.out.println("Podstawa wymiaru składek " + przychod);
+		double oPodstawa = obliczonaPodstawa(przychod);
 		System.out.println("Składka na ubezpieczenie emerytalne "
 				+ df00.format(skladka_emerytalna));
 		System.out.println("Składka na ubezpieczenie rentowe    "
@@ -85,8 +86,7 @@ public class TaxCalculator {
 		System.out.println("Zaliczka do urzędu skarbowego = "
 				+ df00.format(zaliczka_urzad_skarbowy) + " po zaokrągleniu = "
 				+ df.format(zaliczka_urzad_skarbowy_podstawa));
-		double wynagrodzenie = podstawa
-				- ((skladka_emerytalna + skladka_rentowa + ubezpieczenie_chorobowe) + skladka_zdrowotna1 + zaliczka_urzad_skarbowy_podstawa);
+		obliczWynagrodzenie();
 		System.out.println();
 		System.out
 				.println("Pracownik otrzyma wynagrodzenie netto w wysokości = "
@@ -95,8 +95,8 @@ public class TaxCalculator {
 
 	public static void WyliczDlaUmowyZlecenie(DecimalFormat df00, DecimalFormat df){
 		System.out.println("UMOWA-ZLECENIE");
-		System.out.println("Podstawa wymiaru składek " + podstawa);
-		double oPodstawa = obliczonaPodstawa(podstawa);
+		System.out.println("Podstawa wymiaru składek " + przychod);
+		double oPodstawa = obliczonaPodstawa(przychod);
 		System.out.println("Składka na ubezpieczenie emerytalne "
 				+ df00.format(skladka_emerytalna));
 		System.out.println("Składka na ubezpieczenie rentowe    "
@@ -128,8 +128,7 @@ public class TaxCalculator {
 		System.out.println("Zaliczka do urzędu skarbowego = "
 				+ df00.format(zaliczka_urzad_skarbowy) + " po zaokrągleniu = "
 				+ df.format(zaliczka_urzad_skarbowy_podstawa));
-		double wynagrodzenie = podstawa
-				- ((skladka_emerytalna + skladka_rentowa + ubezpieczenie_chorobowe) + skladka_zdrowotna1 + zaliczka_urzad_skarbowy_podstawa);
+		obliczWynagrodzenie();
 		System.out.println();
 		System.out
 				.println("Pracownik otrzyma wynagrodzenie netto w wysokości = "
@@ -140,20 +139,23 @@ public class TaxCalculator {
 		zaliczka_urzad_skarbowy = zaliczka_podatek_dochodowy - skladka_zdrowotna2 - kwota_zmniejszajaca_podatek;
 	}
 
-	public static void obliczPodatek(double podstawa) {
-		zaliczka_podatek_dochodowy = (podstawa * 18) / 100;
+	public static void obliczPodatek(double przychod) {
+		zaliczka_podatek_dochodowy = (przychod * 18) / 100;
 	}
 
-	public static double obliczonaPodstawa(double podstawa) {
-		skladka_emerytalna = (podstawa * 9.76) / 100;
-		skladka_rentowa = (podstawa * 1.5) / 100;
-		ubezpieczenie_chorobowe = (podstawa * 2.45) / 100;
-		return (podstawa - skladka_emerytalna - skladka_rentowa - ubezpieczenie_chorobowe);
+	public static double obliczonaPodstawa(double przychod) {
+		skladka_emerytalna = (przychod * 9.76) / 100;
+		skladka_rentowa = (przychod * 1.5) / 100;
+		ubezpieczenie_chorobowe = (przychod * 2.45) / 100;
+		return (przychod - skladka_emerytalna - skladka_rentowa - ubezpieczenie_chorobowe);
 	}
 
-	public static void obliczUbezpieczenia(double podstawa) {
-		skladka_zdrowotna1 = (podstawa * 9) / 100;
-		skladka_zdrowotna2 = (podstawa * 7.75) / 100;
+	public static void obliczUbezpieczenia(double przychod) {
+		skladka_zdrowotna1 = (przychod * 9) / 100;
+		skladka_zdrowotna2 = (przychod * 7.75) / 100;
+	}
+	public static void  obliczWynagrodzenie(){
+		wynagrodzenie = przychod - ((skladka_emerytalna + skladka_rentowa + ubezpieczenie_chorobowe) + skladka_zdrowotna1 + zaliczka_urzad_skarbowy_podstawa);
 	}
 
 
