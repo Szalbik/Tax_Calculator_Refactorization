@@ -9,7 +9,7 @@ public class TaxCalculator {
 	public static double przychod = 0;
 	public static char umowa = ' ';
 	// składki na ubezpieczenia społeczne
-	public static double skladka_emerytalna = 0; // 9,76% podstawy
+	public static double skladka_emerytalna = 0; // 9,76% podstaw
 	public static double skladka_rentowa = 0; // 1,5% podstawy
 	public static double ubezpieczenie_chorobowe = 0; // 2,45% podstawy
 	// składki na ubezpieczenia zdrowotne
