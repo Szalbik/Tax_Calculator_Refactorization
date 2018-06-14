@@ -31,7 +31,7 @@ public abstract class Contract {
 
 
     public double calculateTax(double salary){
-        return (salary * 18) / 100;
+        return zaliczkaNaPodatekDochodowy = (salary * 18) / 100;
     }
 
     public double calculateRetirementFee(double salary)
@@ -56,8 +56,9 @@ public abstract class Contract {
 
     }
 
-    public static void obliczZaliczkeDoUS() {
+    public static double obliczZaliczkeDoUS() {
         zaliczkaWplaconaDoUS = zaliczkaNaPodatekDochodowy - skladkaZdrowotnaPomniejszajacaPodatek - kwotaZmniejszajacaPodatek;
+        return zaliczkaWplaconaDoUS;
     }
 
     //Sum of fee to Social Insurance Institution
@@ -98,6 +99,7 @@ public abstract class Contract {
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
         return Double.parseDouble(decimalFormat.format(number));
     }
+
 
 
 

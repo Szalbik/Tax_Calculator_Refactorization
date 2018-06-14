@@ -33,12 +33,12 @@ public class WorkContract extends Contract {
         calculatedContract.put("Składka na ubezpieczenie zdrowotne: 9% = ", Double.toString(skladkaZdrowotna));
         calculatedContract.put("Składka na ubezpieczenie zdrowotne: 7,75% = ", Double.toString(skladkaZdrowotnaPomniejszajacaPodatek));
         calculatedContract.put("Koszty uzyskania przychodu (stałe): ", Double.toString(kosztyUzyskaniaPrzychodu));
-        calculatedContract.put("Podstawa opodatkowania: ", Double.toString(podstawaOpodatkowania));
-        calculatedContract.put("Podstawa opodatkowania zaokrąglona: ", Double.toString(roundToWholeNumber(wyliczonaPodstawaOpodatkowania)));
-        calculatedContract.put("Zaliczka na podatek dochodowy 18 % = ", Double.toString(zaliczkaNaPodatekDochodowy));
+        calculatedContract.put("Podstawa opodatkowania: ", Double.toString(przychod));
+        calculatedContract.put("Podstawa opodatkowania zaokrąglona: ", Double.toString(roundToWholeNumber(przychod)));
+        calculatedContract.put("Zaliczka na podatek dochodowy 18 % = ", Double.toString(calculateTax(salary)));
         calculatedContract.put("Podatek potrącony = ", Double.toString(podatekPotracony));
-        calculatedContract.put("Podstawa opodatkowania zaokrąglona: ", Double.toString(roundToWholeNumber(zaliczkaWplaconaDoUS)));
-        calculatedContract.put("Zaliczka do urzędu skarbowego = ", Double.toString(zaliczkaWplaconaDoUS));
+        calculatedContract.put("Podstawa opodatkowania zaokrąglona: ", Double.toString(calculateSocialFee()));
+        calculatedContract.put("Zaliczka do urzędu skarbowego = ", Double.toString(obliczZaliczkeDoUS()));
         calculatedContract.put("Zaliczka do urzędu skarbowego po zaokrągleniu = ", Double.toString(zaokraglonaUS));
         calculatedContract.put("Pracownik otrzyma wynagrodzenie netto w wysokości = ", Double.toString(wynagrodzenie));
     }
