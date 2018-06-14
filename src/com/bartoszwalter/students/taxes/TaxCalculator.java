@@ -138,9 +138,10 @@ public class TaxCalculator {
 		return (przychod - skladka_emerytalna - skladka_rentowa - skladka_chorobowa);
 	}
 
-	public static void obliczUbezpieczenia(double przychod) {
+	public static double obliczUbezpieczenia(double przychod) {
 		skladkaZdrowotna = (przychod * 9) / 100;
 		skladkaZdrowotnaPomniejszajacaPodatek = (przychod * 7.75) / 100;
+		return skladkaZdrowotna + skladkaZdrowotnaPomniejszajacaPodatek;
 	}
 
 	public static double wyliczSkladkeEmerytalna(double przychod){
