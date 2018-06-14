@@ -2,12 +2,12 @@ package com.bartoszwalter.students.contracts;
 
 
 import java.text.DecimalFormat;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedHashMap;
+
 
 public abstract class Contract {
     public static double kwotaZmniejszajacaPodatek = 46.33;
-    public static HashMap<String, String> calculatedContract;
+    public static LinkedHashMap<String, String> calculatedContract;
 
     public static double przychod = 0;
     // składki na ubezpieczenia społeczne
@@ -42,7 +42,7 @@ public abstract class Contract {
 
     public double calculateRentFee(double salary)
     {
-         skladka_rentowa = (salary * 1.5) / 100;
+        skladka_rentowa = (salary * 1.5) / 100;
         return skladka_rentowa;
     }
 
@@ -51,9 +51,8 @@ public abstract class Contract {
     }
 
     protected double calculateHealthInsurance(double salary) {
-              skladkaZdrowotna = (salary * 2.45) / 1;
+        skladkaZdrowotna = (salary * 2.45) / 1;
         return skladkaZdrowotna;
-
     }
 
     public static double obliczZaliczkeDoUS() {
@@ -62,9 +61,11 @@ public abstract class Contract {
     }
 
     //Sum of fee to Social Insurance Institution
-    public double calculateSocialFee(){
-        return skladka_emerytalna + skladka_rentowa + skladkaZdrowotna;
-
+    public double calculateSocialFee(double podstawa){
+         skladka_emerytalna = podstawa * 0.0976;
+         skladka_rentowa = podstawa * 0.015;
+         skladka_chorobowa = podstawa * 0.0245;
+         return skladka_emerytalna + skladka_rentowa + skladka_chorobowa;
     }
 
     //pol. Koszt uzyskania przychodu
@@ -94,13 +95,9 @@ public abstract class Contract {
         return Double.parseDouble(decimalFormat.format(number));
     }
 
-    protected double roundToTwoDigitalsAfterComa(double number)
+    public double roundToTwoDigitalsAfterComa(double number)
     {
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
         return Double.parseDouble(decimalFormat.format(number));
     }
-
-
-
-
 }

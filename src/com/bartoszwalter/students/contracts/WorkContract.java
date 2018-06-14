@@ -2,18 +2,19 @@ package com.bartoszwalter.students.contracts;
 
 import com.bartoszwalter.students.taxes.TaxCalculator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class WorkContract extends Contract {
     private double salary;
 
     public WorkContract(double salary) {
         this.salary = salary;
-        calculatedContract = new HashMap<>();
+        calculatedContract = new LinkedHashMap<>();
         calculateContract();
     }
 
     public void calculateContract(){
-        przychod = getTaxBase(salary, calculateSocialFee(), getTaxDeductibleCost());
+        przychod = getTaxBase(salary, calculateSocialFee(salary), getTaxDeductibleCost());
         calculateInsuarances(salary);
         kosztyUzyskaniaPrzychodu = getKosztyUzyskaniaPrzychodu();
         podstawaOpodatkowania = obliczonaPodstawa - kosztyUzyskaniaPrzychodu;
@@ -24,7 +25,7 @@ public class WorkContract extends Contract {
         wynagrodzenie = przychod
                 - ((skladka_emerytalna + skladka_rentowa + skladka_chorobowa) + skladkaZdrowotna + zaokraglonaUS);
 
-        calculatedContract.put("Typ umowy: ", "UMOWA-ZLECENIE");
+        calculatedContract.put("Typ umowy: ", "UMOWA-O-PRACE");
         calculatedContract.put("Podstawa wymiaru składek: ", Double.toString(salary));
         calculatedContract.put("Składka na ubezpieczenie emerytalne: ", Double.toString(skladka_emerytalna));
         calculatedContract.put("Składka na ubezpieczenie rentowe: ", Double.toString(skladka_rentowa));
@@ -36,10 +37,9 @@ public class WorkContract extends Contract {
         calculatedContract.put("Podstawa opodatkowania: ", Double.toString(przychod));
         calculatedContract.put("Podstawa opodatkowania zaokrąglona: ", Double.toString(roundToWholeNumber(przychod)));
         calculatedContract.put("Zaliczka na podatek dochodowy 18 % = ", Double.toString(calculateTax(salary)));
-        calculatedContract.put("Podatek potrącony = ", Double.toString(podatekPotracony));
-        calculatedContract.put("Podstawa opodatkowania zaokrąglona: ", Double.toString(calculateSocialFee()));
+        calculatedContract.put("Podatek potrącony = ", Double.toString(zaliczkaNaPodatekDochodowy - kwotaZmniejszajacaPodatek));
         calculatedContract.put("Zaliczka do urzędu skarbowego = ", Double.toString(obliczZaliczkeDoUS()));
-        calculatedContract.put("Zaliczka do urzędu skarbowego po zaokrągleniu = ", Double.toString(zaokraglonaUS));
+        calculatedContract.put("Zaliczka do urzędu skarbowego po zaokrągleniu = ", Double.toString(roundToWholeNumber(zaliczkaWplaconaDoUS)));
         calculatedContract.put("Pracownik otrzyma wynagrodzenie netto w wysokości = ", Double.toString(wynagrodzenie));
     }
 
