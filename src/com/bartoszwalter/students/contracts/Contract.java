@@ -1,5 +1,7 @@
 package com.bartoszwalter.students.contracts;
 
+import java.util.HashMap;
+
 public class Contract {
     private Contract contract;
 
