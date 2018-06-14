@@ -64,8 +64,6 @@ public class TaxCalculator {
         kosztyUzyskaniaPrzychodu = (obliczonaPodstawa * 20) / 100;
         podstawaOpodatkowania = obliczonaPodstawa - kosztyUzyskaniaPrzychodu;
         wyliczonaPodstawaOpodatkowania = Double.parseDouble(formatCalkowity.format(podstawaOpodatkowania));
-//      =============================
-//      Obliczanie podatku
         obliczPodatek(wyliczonaPodstawaOpodatkowania);
         podatekPotracony = zaliczkaNaPodatekDochodowy;
         obliczZaliczkeDoUS();
@@ -75,51 +73,16 @@ public class TaxCalculator {
     }
 
     private static void wykonajUmowaoPrace(DecimalFormat formatPrzecinkowy, DecimalFormat formatCalkowity) {
-        System.out.println("UMOWA O PRACĘ");
-        System.out.println("Podstawa wymiaru składek " + przychod);
         obliczonaPodstawa = obliczonaPodstawa(przychod);
-        System.out.println("Składka na ubezpieczenie emerytalne "
-                + formatPrzecinkowy.format(skladka_emerytalna));
-        System.out.println("Składka na ubezpieczenie rentowe    "
-                + formatPrzecinkowy.format(skladka_rentowa));
-        System.out.println("Składka na ubezpieczenie chorobowe  "
-                + formatPrzecinkowy.format(skladka_chorobowa));
-        System.out
-                .println("Podstawa wymiaru składki na ubezpieczenie zdrowotne: "
-                        + obliczonaPodstawa);
         obliczUbezpieczenia(obliczonaPodstawa);
-        System.out.println("Składka na ubezpieczenie zdrowotne: 9% = "
-                + formatPrzecinkowy.format(skladkaZdrowotna) + " 7,75% = " + formatPrzecinkowy.format(skladkaZdrowotnaPomniejszajacaPodatek));
-        System.out.println("Koszty uzyskania przychodu w stałej wysokości "
-                + kosztyUzyskaniaPrzychodu);
         podstawaOpodatkowania = obliczonaPodstawa - kosztyUzyskaniaPrzychodu;
-        wyliczonaPodstawaOpodatkowania = Double
-                .parseDouble(formatCalkowity.format(podstawaOpodatkowania));
-        System.out.println("Podstawa opodatkowania " + podstawaOpodatkowania
-                + " zaokrąglona " + formatCalkowity.format(wyliczonaPodstawaOpodatkowania));
-        
-//      ================================  
-//      Obliczanie podatku
-        
+        wyliczonaPodstawaOpodatkowania = Double.parseDouble(formatCalkowity.format(podstawaOpodatkowania));
         obliczPodatek(wyliczonaPodstawaOpodatkowania);
-        
-        System.out.println("Zaliczka na podatek dochodowy 18 % = "
-                + zaliczkaNaPodatekDochodowy);
-        System.out.println("Kwota wolna od podatku = " + kwotaZmniejszajacaPodatek);
         podatekPotracony = zaliczkaNaPodatekDochodowy - kwotaZmniejszajacaPodatek;
-        System.out.println("Podatek potrącony = "
-                + formatPrzecinkowy.format(podatekPotracony));
         obliczZaliczkeDoUS();
         zaokraglonaUS = Double.parseDouble(formatCalkowity.format(zaliczkaWplaconaDoUS));
-        System.out.println("Zaliczka do urzędu skarbowego = "
-                + formatPrzecinkowy.format(zaliczkaWplaconaDoUS) + " po zaokrągleniu = "
-                + formatCalkowity.format(zaokraglonaUS));
         wynagrodzenie = przychod
                 - ((skladka_emerytalna + skladka_rentowa + skladka_chorobowa) + skladkaZdrowotna + zaokraglonaUS);
-        System.out.println();
-        System.out
-                .println("Pracownik otrzyma wynagrodzenie netto w wysokości = "
-                        + formatPrzecinkowy.format(wynagrodzenie));
     }
 
 
