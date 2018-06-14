@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Contract {
+    public static double kwotaZmniejszajacaPodatek = 46.33;
     public static HashMap<String, String> calculatedContract;
 
     public static double przychod = 0;
