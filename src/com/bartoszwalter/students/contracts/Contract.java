@@ -9,7 +9,6 @@ public abstract class Contract {
     public static HashMap<String, String> calculatedContract;
 
     public static double przychod = 0;
-    public static char typ_umowy = ' ';
     // składki na ubezpieczenia społeczne
     public static double skladka_emerytalna = 0; // 9,76% podstawyy
     public static double skladka_rentowa = 0; // 1,5% podstawy
@@ -36,22 +35,33 @@ public abstract class Contract {
 
     public double calculateRetirementFee(double salary)
     {
-        return (salary * 9.76) / 100;
+        skladka_emerytalna = (salary * 9.76) / 100;
+        return skladka_emerytalna;
     }
 
     public double calculateRentFee(double salary)
     {
-        return (salary * 1.5) / 100;
+         skladka_rentowa = (salary * 1.5) / 100;
+        return skladka_rentowa;
+    }
+
+    public static void obliczPodatek(double przychod) {
+        zaliczkaNaPodatekDochodowy = (przychod * 18) / 100;
     }
 
     protected double calculateHealthInsurance(double salary) {
-        return (salary * 2.45) / 1;
+              skladkaZdrowotna = (salary * 2.45) / 1;
+        return skladkaZdrowotna;
 
     }
 
+    public static void obliczZaliczkeDoUS() {
+        zaliczkaWplaconaDoUS = zaliczkaNaPodatekDochodowy - skladkaZdrowotnaPomniejszajacaPodatek - kwotaZmniejszajacaPodatek;
+    }
+
     //Sum of fee to Social Insurance Institution
-    public double calculateSocialFee(double retirementFee, double rentFee, double healthInsurance){
-        return retirementFee + rentFee + healthInsurance;
+    public double calculateSocialFee(){
+        return skladka_emerytalna + skladka_rentowa + skladkaZdrowotna;
 
     }
 
@@ -70,6 +80,12 @@ public abstract class Contract {
        return 1.0; //do poprawy
     }
 
+    public static double calculateInsuarances(double przychod) {
+        skladkaZdrowotna = (przychod * 9) / 100;
+        skladkaZdrowotnaPomniejszajacaPodatek = (przychod * 7.75) / 100;
+        return skladkaZdrowotna + skladkaZdrowotnaPomniejszajacaPodatek;
+    }
+
     public double roundToWholeNumber(double number)
     {
         DecimalFormat decimalFormat = new DecimalFormat("#");
@@ -81,5 +97,7 @@ public abstract class Contract {
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
         return Double.parseDouble(decimalFormat.format(number));
     }
+
+
 
 }

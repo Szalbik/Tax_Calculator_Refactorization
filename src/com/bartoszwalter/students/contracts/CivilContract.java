@@ -15,14 +15,14 @@ public class CivilContract extends Contract {
     }
 
     public void calculateContract(){
-        przychod = TaxCalculator.obliczonaPodstawa(this.salary);
-        TaxCalculator.obliczUbezpieczenia(przychod);
+        przychod = getTaxBase(salary, calculateSocialFee(), getTaxDeductibleCost());
+        calculateInsuarances(salary);
         kosztyUzyskaniaPrzychodu = getKosztyUzyskaniaPrzychodu();
         podstawaOpodatkowania = obliczonaPodstawa - kosztyUzyskaniaPrzychodu;
         wyliczonaPodstawaOpodatkowania = roundToWholeNumber(podstawaOpodatkowania);
-        TaxCalculator.obliczPodatek(wyliczonaPodstawaOpodatkowania);
+        obliczPodatek(wyliczonaPodstawaOpodatkowania);
         podatekPotracony = zaliczkaNaPodatekDochodowy;
-        TaxCalculator.obliczZaliczkeDoUS();
+        obliczZaliczkeDoUS();
         wynagrodzenie = przychod
                 - ((skladka_emerytalna + skladka_rentowa + skladka_chorobowa) + skladkaZdrowotna + zaokraglonaUS);
 

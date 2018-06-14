@@ -1,32 +1,18 @@
 package com.bartoszwalter.students.taxes;
 
+import com.bartoszwalter.students.Utils.ResultWriter;
+import com.bartoszwalter.students.contractFactory.Factory;
+import com.bartoszwalter.students.contracts.Contract;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 
 public class TaxCalculator {
-	
-	public static double przychod = 0;
-	public static char typ_umowy = ' ';
-	// składki na ubezpieczenia społeczne
-	public static double skladka_emerytalna = 0; // 9,76% podstawyy
-	public static double skladka_rentowa = 0; // 1,5% podstawy
-	public static double skladka_chorobowa = 0; // 2,45% podstawy
-	// składki na ubezpieczenia zdrowotne
-	public static double kosztyUzyskaniaPrzychodu = 111.25;
-	public static double skladkaZdrowotna = 0; // od podstawy wymiaru 9%
-	public static double skladkaZdrowotnaPomniejszajacaPodatek = 0; // od podstawy wymiaru 7,75 %
 
-	public static double zaliczkaNaPodatekDochodowy = 0; // zaliczka na podatek dochodowy 18%
-	public static double kwotaZmniejszajacaPodatek = 46.33; // kwota zmienjszająca podatek 46,33 PLN
-	public static double zaliczkaWplaconaDoUS = 0;
-	public static double zaokraglonaUS = 0;
+    private static Double salary;
+    private static Character typ_umowy;
 
-	public static double obliczonaPodstawa;
-	public static double podstawaOpodatkowania;
-    public static double wyliczonaPodstawaOpodatkowania;
-    public static double podatekPotracony;
-    public static double wynagrodzenie;
 
 	public static void main(String[] args) {
 		try {
@@ -34,9 +20,10 @@ public class TaxCalculator {
 			BufferedReader br = new BufferedReader(isr);
 
 			System.out.print("Podaj kwotę dochodu: ");
-			przychod = Double.parseDouble(br.readLine());
+            salary = Double.parseDouble(br.readLine());
 
 			System.out.print("Typ umowy: (P)raca, (Z)lecenie: ");
+
 			typ_umowy = br.readLine().charAt(0);
 
 		} catch (Exception ex) {
@@ -48,13 +35,8 @@ public class TaxCalculator {
 		DecimalFormat formatPrzecinkowy = new DecimalFormat("#.00");
 		DecimalFormat formatCalkowity = new DecimalFormat("#");
 
-		if (typ_umowy == 'P') {
-            wykonajUmowaoPrace(formatPrzecinkowy, formatCalkowity);
-        } else if (typ_umowy == 'Z') {
-            wykonajUmowaZlecenie(formatPrzecinkowy, formatCalkowity);
-		} else {
-			System.out.println("Nieznany typ umowy!");
-		}
+        Factory.createContract(salary, typ_umowy);
+        ResultWriter.printResult();
 	}
 
     private static void wykonajUmowaZlecenie(DecimalFormat formatPrzecinkowy, DecimalFormat formatCalkowity) {
