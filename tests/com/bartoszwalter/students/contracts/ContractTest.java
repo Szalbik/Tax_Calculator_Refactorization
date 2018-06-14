@@ -1,4 +1,4 @@
-package com.bartoszwalter.students.test;
+package com.bartoszwalter.students.contracts;
 
 import org.junit.jupiter.api.Test;
 
