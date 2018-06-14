@@ -1,5 +1,6 @@
 package com.bartoszwalter.students.contracts;
 
+
 import java.text.DecimalFormat;
 
 public abstract class Contract {
