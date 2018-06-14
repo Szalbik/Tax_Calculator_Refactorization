@@ -1,4 +1,4 @@
 package com.bartoszwalter.students.contracts;
 
-public class CivilContract {
+public class CivilContract extends Contract {
 }
