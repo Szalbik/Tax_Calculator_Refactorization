@@ -2,6 +2,7 @@ package com.bartoszwalter.students.contracts;
 
 
 import java.text.DecimalFormat;
+import java.util.Map;
 
 public abstract class Contract {
 
