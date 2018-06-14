@@ -11,10 +11,10 @@ public class CivilContract extends Contract {
     public CivilContract(double salary) {
         this.salary = salary;
         calculatedContract = new HashMap<>();
-        calculateCivilContract();
+        calculateContract();
     }
 
-    public void calculateCivilContract(){
+    public void calculateContract(){
         przychod = TaxCalculator.obliczonaPodstawa(this.salary);
         TaxCalculator.obliczUbezpieczenia(przychod);
         kosztyUzyskaniaPrzychodu = getKosztyUzyskaniaPrzychodu();

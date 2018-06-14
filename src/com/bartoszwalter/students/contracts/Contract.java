@@ -82,10 +82,4 @@ public abstract class Contract {
         return Double.parseDouble(decimalFormat.format(number));
     }
 
-
-
-
-
-
-
 }
