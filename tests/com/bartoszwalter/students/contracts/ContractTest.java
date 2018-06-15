@@ -6,11 +6,4 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ContractTest {
 
-    @Test
-    void getContract() {
-    }
-
-    @Test
-    void setContract() {
-    }
 }
