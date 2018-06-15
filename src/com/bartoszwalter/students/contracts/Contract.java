@@ -6,87 +6,79 @@ import java.util.LinkedHashMap;
 
 
 public abstract class Contract {
-    public static double kwotaZmniejszajacaPodatek = 46.33;
+    public static double amountReduceTax = 46.33;
     public static LinkedHashMap<String, String> calculatedContract;
 
-    public static double przychod = 0;
-    // składki na ubezpieczenia społeczne
-    public static double skladka_emerytalna = 0; // 9,76% podstawyy
-    public static double skladka_rentowa = 0; // 1,5% podstawy
-    public static double skladka_chorobowa = 0; // 2,45% podstawy
-    // składki na ubezpieczenia zdrowotne
-    public static double kosztyUzyskaniaPrzychodu = 111.25;
-    public static double skladkaZdrowotna = 0; // od podstawy wymiaru 9%
-    public static double skladkaZdrowotnaPomniejszajacaPodatek = 0; // od podstawy wymiaru 7,75 %
-
-    public static double zaliczkaNaPodatekDochodowy = 0; // zaliczka na podatek dochodowy 18%
-    public static double zaliczkaWplaconaDoUS = 0;
-    public static double zaokraglonaUS = 0;
-
-    public static double obliczonaPodstawa;
-    public static double podstawaOpodatkowania;
-    public static double wyliczonaPodstawaOpodatkowania;
-    public static double podatekPotracony;
-    public static double wynagrodzenie;
+    public static double income = 0;
+    public static double retireContribution = 0;
+    public static double rentContribution = 0;
+    public static double sicknessContribution = 0;
+    public static double shortTermCosts = 111.25;
+    public static double healthCareContribution = 0;
+    public static double healthCareContribReduceTax = 0;
+    public static double advancePayToIncomeTax = 0;
+    public static double advancePayToUS = 0;
+    public static double roundUS = 0;
+    public static double calculatedBase;
+    public static double taxBase;
+    public static double calculatedTaxBase;
+    public static double withholdingTax;
+    public static double pay;
 
 
     public double calculateTax(double salary){
-        return zaliczkaNaPodatekDochodowy = (salary * 18) / 100;
+        return advancePayToIncomeTax = (salary * 18) / 100;
     }
 
     public double calculateRetirementFee(double salary)
     {
-        skladka_emerytalna = (salary * 9.76) / 100;
-        return skladka_emerytalna;
+        retireContribution = (salary * 9.76) / 100;
+        return retireContribution;
     }
 
     public double calculateRentFee(double salary)
     {
-        skladka_rentowa = (salary * 1.5) / 100;
-        return skladka_rentowa;
+        rentContribution = (salary * 1.5) / 100;
+        return rentContribution;
     }
 
-    public static void obliczPodatek(double przychod) {
-        zaliczkaNaPodatekDochodowy = (przychod * 18) / 100;
+    public static void obliczPodatek(double pay) {
+        advancePayToIncomeTax = (pay * 18) / 100;
     }
 
     protected double calculateHealthInsurance(double salary) {
-        skladkaZdrowotna = (salary * 2.45) / 1;
-        return skladkaZdrowotna;
+        healthCareContribution = (salary * 2.45) / 1;
+        return healthCareContribution;
     }
 
-    public static double obliczZaliczkeDoUS() {
-        zaliczkaWplaconaDoUS = zaliczkaNaPodatekDochodowy - skladkaZdrowotnaPomniejszajacaPodatek - kwotaZmniejszajacaPodatek;
-        return zaliczkaWplaconaDoUS;
+    public static double calculateAdvanceToUS() {
+        advancePayToUS = advancePayToIncomeTax - healthCareContribReduceTax - amountReduceTax;
+        return advancePayToUS;
     }
 
-    //Sum of fee to Social Insurance Institution
-    public double calculateSocialFee(double podstawa){
-         skladka_emerytalna = podstawa * 0.0976;
-         skladka_rentowa = podstawa * 0.015;
-         skladka_chorobowa = podstawa * 0.0245;
-         return skladka_emerytalna + skladka_rentowa + skladka_chorobowa;
+    public double calculateSocialFee(double base){
+         retireContribution = base * 0.0976;
+         rentContribution = base * 0.015;
+         sicknessContribution = base * 0.0245;
+         return retireContribution + rentContribution + sicknessContribution;
     }
 
-    //pol. Koszt uzyskania przychodu
     public double getTaxDeductibleCost(){
         return 111.25;
     }
 
-    //pol. Podstawa opodatkowania
     public double getTaxBase(double salary, double socialFee, double taxDeductibleCost){
         return salary - socialFee - taxDeductibleCost;
     }
 
-    //pol. Zaliczka na podatek
     public double getTaxAdvance(){
        return 1.0; //do poprawy
     }
 
-    public static double calculateInsuarances(double przychod) {
-        skladkaZdrowotna = (przychod * 9) / 100;
-        skladkaZdrowotnaPomniejszajacaPodatek = (przychod * 7.75) / 100;
-        return skladkaZdrowotna + skladkaZdrowotnaPomniejszajacaPodatek;
+    public static double calculateInsuarances(double income) {
+        healthCareContribution = (income * 9) / 100;
+        healthCareContribReduceTax = (income * 7.75) / 100;
+        return healthCareContribution + healthCareContribReduceTax;
     }
 
     public double roundToWholeNumber(double number)

@@ -2,15 +2,13 @@ package com.bartoszwalter.students.taxes;
 
 import com.bartoszwalter.students.Utils.ResultWriter;
 import com.bartoszwalter.students.contractFactory.Factory;
-import com.bartoszwalter.students.contracts.Contract;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.text.DecimalFormat;
 
 public class TaxCalculator {
-    private static Double salary;
-    private static Character typ_umowy;
+    private static Double salary;1
+    private static Character contractType;
 
 	public static void main(String[] args) {
 		try {
@@ -22,18 +20,14 @@ public class TaxCalculator {
 
 			System.out.print("Typ umowy: (P)raca, (Z)lecenie: ");
 
-			typ_umowy = br.readLine().charAt(0);
+			contractType = br.readLine().charAt(0);
 
 		} catch (Exception ex) {
 			System.out.println("Błędna kwota");
 			System.err.println(ex);
 			return;
 		}
-
-//		DecimalFormat formatPrzecinkowy = new DecimalFormat("#.00");
-//		DecimalFormat formatCalkowity = new DecimalFormat("#");
-
-        Factory.createContract(salary, typ_umowy);
+        Factory.createContract(salary, contractType);
         ResultWriter.printResult();
 	}
 

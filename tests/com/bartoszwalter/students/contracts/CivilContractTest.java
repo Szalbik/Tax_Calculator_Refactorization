@@ -9,6 +9,6 @@ class CivilContractTest {
     @Test
     void calculateCivilContract() {
         CivilContract civilContract = new CivilContract(1000);
-        assertEquals(862.9, Contract.wynagrodzenie);
+        assertEquals(862.9, Contract.pay);
     }
 }
