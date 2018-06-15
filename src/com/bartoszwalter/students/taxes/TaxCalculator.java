@@ -7,7 +7,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class TaxCalculator {
-    private static Double salary;1
+    private static Double salary;
     private static Character contractType;
 
 	public static void main(String[] args) {
